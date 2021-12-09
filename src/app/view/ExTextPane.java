@@ -1,0 +1,74 @@
+package app.view;
+import java.awt.Font;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JTextPane;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicTextPaneUI;
+
+public class ExTextPane extends BasicTextPaneUI implements IComponents{
+    private static ColorUI colorUI;
+    private Border border;
+    private Font fuente;
+    
+    public ExTextPane(ColorUI colorUI) {
+        this.colorUI = colorUI;
+        border = BorderFactory.createLineBorder(this.colorUI.getColorBorde());
+        fuente = new Font("Segoe UI", Font.BOLD,14);
+    }
+
+    public ExTextPane(ColorUI colorUI, Border border, Font fuente) {
+        this.colorUI = colorUI;
+        this.border = border;
+        this.fuente = fuente;
+    }
+
+    public static ComponentUI createUI(JComponent c){
+        return new ExTextPane(colorUI);
+    }
+    
+    @Override
+    public void crearDisenio(){
+        UIManager.put("TextPane.border", border);
+        UIManager.put("TextPane.background", this.colorUI.getColorFondo());
+        UIManager.put("TextPane.foreground", this.colorUI.getColorForeground());
+        UIManager.put("TextPane.font", fuente);
+    }
+    
+    public static ColorUI getColorUI() {
+        return colorUI;
+    }
+
+    public static void setColorUI(ColorUI aColorUI) {
+        colorUI = aColorUI;
+    }
+    
+    @Override
+    public void modificarUI(JComponent c){
+        if (c instanceof JTextPane){
+            JTextPane tp = (JTextPane)c;
+            tp.setUI(this);
+        }
+    }
+
+    public Border getBorder() {
+        return border;
+    }
+
+    public void setBorder(Border border) {
+        this.border = border;
+    }
+
+    public Font getFuente() {
+        return fuente;
+    }
+
+    public void setFuente(Font fuente) {
+        this.fuente = fuente;
+    }
+    
+    
+}
