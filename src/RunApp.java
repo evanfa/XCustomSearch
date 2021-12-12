@@ -22,6 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
 
 import app.controller.ControllerItems;
@@ -258,10 +260,27 @@ public class RunApp extends JFrame implements Observer {
 		table.setModel(tableModel);
 		
 		//TableColumnModel columnModel = table.getColumnModel();
-		   columnModel.getColumn(0).setPreferredWidth(8);
+		    columnModel.getColumn(0).setPreferredWidth(8);
 	        columnModel.getColumn(1).setPreferredWidth(250);
 	        columnModel.getColumn(2).setPreferredWidth(780);
 	        columnModel.getColumn(3).setPreferredWidth(15);
+	        
+	    //table.setCellSelectionEnabled(true);
+	    
+	    /*ListSelectionModel cellSelectionModel = table.getSelectionModel();
+	    cellSelectionModel.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+	    cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
+	      public void valueChanged(ListSelectionEvent e) {
+	        String selectedData = null;
+	        
+	        
+	        
+	      }
+	    });
+	    */
+	    
+	    
 	}
 	
 	// Add a new download.

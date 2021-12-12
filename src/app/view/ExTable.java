@@ -8,9 +8,12 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicTableUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
@@ -119,6 +122,21 @@ public class ExTable extends BasicTableUI implements IComponents{
         componente.setAutoCreateRowSorter(true);
         componente.setForeground(new Color(16,43,66));
         
+        componente.getSelectionModel().addListSelectionListener(
+        		new ListSelectionListener() {
+        			public void valueChanged(ListSelectionEvent e) {
+        				//System.out.println("Event: "+e);
+        				componente.getSelectedRow();
+        			}
+        });
+        
+        //componente.setCellSelectionEnabled(true);
+        componente.getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        
+        //componente.setColumnSelectionAllowed(false);
+        //componente.setRowSelectionAllowed(true);
+        
+        //componente.getAutoResizeMode();
         //componente.setRowSelectionAllowed(true);
         //componente.getCellSelectionEnabled();
         //componente.setAutoscrolls(true);

@@ -9,8 +9,11 @@ import javax.swing.table.AbstractTableModel;
 
 import app.model.Record;
 
+@SuppressWarnings("serial")
 public class JTable_Component extends AbstractTableModel implements Observer{
-	
+	private ArrayList<Record> downloadList = new ArrayList<Record>();
+	private static final int COLUMN_CHECK_BOX = 3;
+	 
 	private static final String[] columnNames = {
     		"Id File", 
     		"File Name", 
@@ -23,8 +26,6 @@ public class JTable_Component extends AbstractTableModel implements Observer{
 			 String.class, 
 			 Boolean.class
 			 };
-	 
-	 private ArrayList<Record> downloadList = new ArrayList<Record>();
 			 
 	 public void addDownload(Record download) {
 	        //download.addObserver(this);    
@@ -63,23 +64,22 @@ public class JTable_Component extends AbstractTableModel implements Observer{
 	
 	@Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		System.out.println("Vals: "+aValue+"Row: "+rowIndex+" Col: "+columnIndex);
 		
-		System.out.println("Vals: "+aValue+"Row: "+rowIndex+"Col: "+columnIndex);
+		Record download = downloadList.get(rowIndex);
 		
-		if (aValue instanceof Boolean) {
-			fireTableCellUpdated(rowIndex, columnIndex);
+		if(!download.selectedId) {
+			download.selectedId = true;
+		}else {
+			download.selectedId = false;
 		}
-		
-		/*if (columnIndex == 3) {
-        	fireTableCellUpdated(rowIndex, columnIndex);
-        	System.out.println("Flag: "+((Boolean) aValue).booleanValue());
-            if (aValue instanceof Boolean) {
-            	System.out.println("Flag: "+((Boolean) aValue).booleanValue());
-                data[rowIndex][columnIndex] = (Boolean)aValue;
-                fireTableCellUpdated(rowIndex, columnIndex);
-            }
-        }*/
+
     }
+	
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return columnIndex == COLUMN_CHECK_BOX;
+	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
@@ -94,8 +94,18 @@ public class JTable_Component extends AbstractTableModel implements Observer{
     }
      
     // Get a column's class.
-    public Class getColumnClass(int col) {
+    /*public Class getColumnClass(int col) {
         return columnClasses[col];
+    }*/
+    
+    public Class<?> getColumnClass(int col){
+    	switch(col) {
+    	case 0: return Integer.class;
+    	case 1: return String.class;
+    	case 2: return String.class;
+    	case 3: return Boolean.class;
+    	default: return String.class;
+    	}
     }
     
     public void setListItemsFound(List<Record> listItemsFound) {
