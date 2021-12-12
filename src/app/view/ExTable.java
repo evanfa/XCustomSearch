@@ -115,7 +115,14 @@ public class ExTable extends BasicTableUI implements IComponents{
     public static void modificarGrid(JTable componente){
         componente.setShowGrid(true);
         componente.setShowHorizontalLines(true);
-        componente.setShowVerticalLines(false);        
+        componente.setShowVerticalLines(true);
+        componente.setAutoCreateRowSorter(true);
+        componente.setForeground(new Color(16,43,66));
+        
+        //componente.setRowSelectionAllowed(true);
+        //componente.getCellSelectionEnabled();
+        //componente.setAutoscrolls(true);
+        //componente.setBackground(new Color(0,62,114));
     }
     
     public static void modificarAlturaFilas(JTable componente) {
@@ -123,10 +130,11 @@ public class ExTable extends BasicTableUI implements IComponents{
     }
     
     public static void modifyHeadersTable(JTable componente) {
-    	
     	 JTableHeader header = componente.getTableHeader();
-         header.setBackground(new Color(226,234,245));
-         header.setForeground(new Color(0,62,113));
+         //header.setBackground(new Color(226,234,245));
+         header.setBackground(new Color(16,43,66));
+         //header.setForeground(new Color(0,62,113));
+         header.setForeground(new Color(255,255,255));
          header.setFont(new Font("SansSerif", Font.BOLD, 12));
     }
     

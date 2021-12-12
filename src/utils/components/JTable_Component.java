@@ -60,7 +60,27 @@ public class JTable_Component extends AbstractTableModel implements Observer{
        }
        return "";
 	}
-
+	
+	@Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		
+		System.out.println("Vals: "+aValue+"Row: "+rowIndex+"Col: "+columnIndex);
+		
+		if (aValue instanceof Boolean) {
+			fireTableCellUpdated(rowIndex, columnIndex);
+		}
+		
+		/*if (columnIndex == 3) {
+        	fireTableCellUpdated(rowIndex, columnIndex);
+        	System.out.println("Flag: "+((Boolean) aValue).booleanValue());
+            if (aValue instanceof Boolean) {
+            	System.out.println("Flag: "+((Boolean) aValue).booleanValue());
+                data[rowIndex][columnIndex] = (Boolean)aValue;
+                fireTableCellUpdated(rowIndex, columnIndex);
+            }
+        }*/
+    }
+	
 	@Override
 	public void update(Observable o, Object arg) {
         int index = downloadList.indexOf(o);
